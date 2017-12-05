@@ -6,6 +6,7 @@ public class ResearchManager : MonoBehaviour {
 
 	//Multiplied 50 times a second to the science amount. Handled by the storageManager. Default: 0.99996 to reduce by ~10% a minute
 	public static double SCIENCEDECAYMULTIPLIER = 0.99996;
+	public StorageHolder storage;
 
 	List<Research> researches= new List<Research>();
 	Research currentResearch;
@@ -16,7 +17,11 @@ public class ResearchManager : MonoBehaviour {
 	}
 	void loadCurrentResearch()
 	{
-		//TODO: implement
+		currentResearch= researches [0];
+	}
+	public void FixedUpdate()
+	{
+		currentResearch.addResearchPoints (storage.science/50);
 	}
 	void loadResearches()
 	{
@@ -29,14 +34,14 @@ public class ResearchManager : MonoBehaviour {
 		//TODO: implement
 	}
 
-	void unfinishResearch(Research res)
+	public void unfinishResearch(Research res)
 	{
 		//TODO: implement
 	}
 
 	public Research modifyToDefaultResearch(Research research,ResearchManager manager,string name,string descr,List<Research> dependencies,int cost,Effect effect)
 	{
-		research.active = false;
+		research.active = true;
 		research.alreadyResearchedAmount = 0;
 		research.dependencies = dependencies;
 		research.isFinished = false;
@@ -48,19 +53,19 @@ public class ResearchManager : MonoBehaviour {
 		return research;
 	}
 
-	void setCurrentResearch(Research res)
+	public void setCurrentResearch(Research res)
 	{
 		currentResearch = res;
 	}
 
-	Research getCurrentResearch()
+	public Research getCurrentResearch()
 	{
 		return currentResearch;
 	}
 	public void loadTestResearch()
 	{
 		Research research = gameObject.AddComponent<Research>();
-		research = modifyToDefaultResearch (research,this,"TestResearch","To test the research System",new List<Research>(),10,null);
+		research = modifyToDefaultResearch (research,this,"TestResearch","To test the research System",new List<Research>(),1000,null);
 		researches.Add (research);
 	}
 

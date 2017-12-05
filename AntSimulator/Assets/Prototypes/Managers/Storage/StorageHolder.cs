@@ -14,7 +14,7 @@ public class StorageHolder : MonoBehaviour {
 	void Start () {
 		food = 0;
 		minerals = 0;
-		science = 10;
+		science = 1;
 	}
 	// FixedUpdate is called 50 times a second
 	void FixedUpdate () {
